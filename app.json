@@ -1,0 +1,7 @@
+{
+  "name": "submarine-online",
+  "description": "潜水艦ゲーム",
+  "logo": "",
+  "keywords": ["node"],
+  "image": "heroku/nodejs"
+}
