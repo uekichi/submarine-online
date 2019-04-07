@@ -15,7 +15,7 @@ var gameRouter = require('./routes/game');
 passport.use(new Strategy({
     consumerKey: config.twitter.consumerKey,
     consumerSecret: config.twitter.consumerSecret,
-    callbackURL: config.twitter.callbackURL
+    callbackURL: config.twitter.herokuCallbackURL || config.twitter.callbackURL
   },
   function(token, tokenSecret, profile, cb) {
     process.nextTick(function () {
