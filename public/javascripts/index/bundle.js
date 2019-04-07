@@ -6081,12 +6081,18 @@ function drawRanking(ctxScore, playersMap) {
     ctxScore.fillStyle = "rgb(26, 26, 26)";
     ctxScore.font = '20px Arial';
 
+    //最高記録者を表示　クライアント側ではだめ
+    /*
     if (gameObj.championScore < playersArray[0][1].score) {
         gameObj.championScore = playersArray[0][1].score;
-        gameObj.championName = playersArray[0][1].displayName;
+        gameObj.championName = playersArray[0][1].displayName
     }
-
-    ctxScore.fillText('\u6700\u9AD8\u8A18\u9332 ' + gameObj.championName + ' ' + gameObj.championScore, 10, 210);
+    
+    ctxScore.fillText(
+        `最高記録 ${gameObj.championName} ${gameObj.championScore}`,
+        10, 210
+    );
+    */
 
     for (var i = 0; i < 10; i++) {
         if (!playersArray[i]) return;

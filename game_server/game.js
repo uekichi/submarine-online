@@ -20,7 +20,7 @@ const gameObj = {
     airTotal: 10,
     itemRadius: 4,
     airRadius: 6,
-    addAirTime: 30,
+    addAirTime: 15,
     itemPoint: 3,
     killPoint: 50,
     submarineImageWidth: 42
@@ -259,7 +259,7 @@ function newConnection(socketId, displayName, thumbUrl) {
         isAlive: true,
         direction: 'right',
         missilesMany: 0,
-        airTime: 50,
+        airTime: 30,
         aliveTime: { 'clock': 0, 'seconds': 0 },
         deadCount: 0,
         score: 0
