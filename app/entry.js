@@ -36,7 +36,7 @@ const gameObj = {
 };
 
 const socketQueryParameters = `displayName=${gameObj.myDisplayName}&thumbUrl=${gameObj.myThumbUrl}`;
-const socket = io($('#main').attr('data-ipAddress') + '?' + socketQueryParameters);
+const socket = io($('#main').attr('data-process.env.ipAddress') + '?' + socketQueryParameters);
 
 function init() {
 

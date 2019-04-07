@@ -5793,7 +5793,7 @@ var gameObj = {
 };
 
 var socketQueryParameters = 'displayName=' + gameObj.myDisplayName + '&thumbUrl=' + gameObj.myThumbUrl;
-var socket = (0, _socket2.default)((0, _jquery2.default)('#main').attr('data-ipAddress') + '?' + socketQueryParameters);
+var socket = (0, _socket2.default)((0, _jquery2.default)('#main').attr('data-process.env.ipAddress') + '?' + socketQueryParameters);
 
 function init() {
 
