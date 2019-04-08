@@ -36,7 +36,7 @@ const gameObj = {
 };
 
 const socketQueryParameters = `displayName=${gameObj.myDisplayName}&thumbUrl=${gameObj.myThumbUrl}`;
-const socket = io($('#main').attr('data-process.env.ipAddress') + '?' + socketQueryParameters);
+const socket = io($('#main').attr('data-ipAddress') + '?' + socketQueryParameters);
 
 function init() {
 
@@ -391,6 +391,10 @@ socket.on('map data', (compressed) => {
             emitPlayerId: compressedFlyingMissileData[3]
         });
     });
+});
+
+socket.on('legend data', (legendObj) => {
+    console.log(`${legendObj.name} : ${legendObj.score}`);
 });
 
 function getRadian(deg) {

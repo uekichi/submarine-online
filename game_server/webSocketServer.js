@@ -17,6 +17,9 @@ function createWebSocketServer(io, game) {
             game.missileEmit(socket.id, direction);
         });
 
+        legendObj = {name: 'uekichi', score: 30000}
+        socket.emit('legend data', legendObj);
+
         socket.on('disconnect', () => {
             game.disconnect(socket.id);
         });
