@@ -15,7 +15,7 @@ var gameRouter = require('./routes/game');
 passport.use(new Strategy({
     consumerKey: process.env.consumerKey, //? process.env.consumerKey : config.twitter.consumerKey,
     consumerSecret: process.env.consumerSecret, //? process.env.consumerSecret : config.twitter.consumerSecret,
-    callbackURL: process.env.ipAddress //? process.env.ipAddress + 'auth/twitter/callback' : config.twitter.callbackURL
+    callbackURL: process.env.ipAddress + 'auth/twitter/callback' //? process.env.ipAddress + 'auth/twitter/callback' : config.twitter.callbackURL
   },
   function(token, tokenSecret, profile, cb) {
     process.nextTick(function () {
