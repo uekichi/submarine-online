@@ -14,7 +14,7 @@ router.get('/', (req, res, next) => {
     title: '潜水艦ゲーム',
     displayName: displayName,
     thumbUrl: thumbUrl,
-    ipAddress: config.ipAddress
+    ipAddress: process.env.ipAddress //config.ipAddress
   })
 });
 
