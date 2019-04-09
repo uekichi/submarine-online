@@ -43,7 +43,7 @@ const gameTicker = setInterval(() => {
     movePlayers(playersAndNPCMap); //潜水艦の移動　プレイヤー情報
     moveMissile(gameObj.flyingMissilesMap); // ミサイルの移動
     checkGetItem(playersAndNPCMap, gameObj.itemsMap, gameObj.airMap, gameObj.flyingMissilesMap); //アイテムのチェック
-    checkNewRecord(playersAndCOMMap);
+    checkNewRecord(playersAndNPCMap);
     addNPC();
 }, 33);
 
