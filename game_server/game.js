@@ -23,7 +23,8 @@ const gameObj = {
     addAirTime: 15,
     itemPoint: 3,
     killPoint: 50,
-    submarineImageWidth: 42
+    submarineImageWidth: 42,
+    bestPlayer: {name: '', score: 0}
 };
 
 function init() {
@@ -42,6 +43,7 @@ const gameTicker = setInterval(() => {
     movePlayers(playersAndNPCMap); //潜水艦の移動　プレイヤー情報
     moveMissile(gameObj.flyingMissilesMap); // ミサイルの移動
     checkGetItem(playersAndNPCMap, gameObj.itemsMap, gameObj.airMap, gameObj.flyingMissilesMap); //アイテムのチェック
+    checkNewRecord(playersAndCOMMap);
     addNPC();
 }, 33);
 
@@ -284,6 +286,7 @@ function getMapData() {
     const airArray = [];
     const flyingMissilesArray = [];
     const playersAndNPCMap = new Map(Array.from(gameObj.playersMap).concat(Array.from(gameObj.NPCMap)));
+    const bestPlayer = {name: gameObj.bestPlayer.name, score: gameObj.bestPlayer.score};
 
     for (let [socketId, plyer] of playersAndNPCMap) {
         const playerDataForSend = []; //オブジェクトデータでは大きいので配列を送る
@@ -331,7 +334,7 @@ function getMapData() {
         flyingMissilesArray.push(flyingMissileDataForSend);
     }
 
-    return [playersArray, itemsArray, airArray, flyingMissilesArray];
+    return [playersArray, itemsArray, airArray, flyingMissilesArray, bestPlayer];
 }
 
 function disconnect(socketId) {
@@ -368,6 +371,22 @@ function addAir() {
 　       y: airY,
 　   };
 　   gameObj.airMap.set(airKey, airObj);
+}
+
+function checkNewRecord(playersMap) {
+    const playersArray = [].concat(Array.from(playersMap)); //連想配列でソートが出来ないためArrayにする
+    playersArray.sort(function(a,b) {
+        return b[1].score - a[1].score;
+    });
+
+    //最高記録者とスコアを保存
+    if (! playersArray[0]) return; //これつけたら動いた
+
+    const topPlayerScore = playersArray[0][1].score;
+    if (gameObj.bestPlayer.score < topPlayerScore) {
+        gameObj.bestPlayer.score = topPlayerScore;
+        gameObj.bestPlayer.name = playersArray[0][1].displayName;
+    }
 }
 
 function addNPC() {

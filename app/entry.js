@@ -31,8 +31,7 @@ const gameObj = {
     itemsMap: new Map(),
     airMap: new Map(),
     flyingMissilesMap: new Map(),
-    championScore: 0,
-    championName: null
+    bestPlayer: {name: "", score: 0}
 };
 
 const socketQueryParameters = `displayName=${gameObj.myDisplayName}&thumbUrl=${gameObj.myThumbUrl}`;
@@ -289,6 +288,11 @@ function drawScore(ctxScore, score) {
     ctxScore.fillStyle = "rgb(26, 26, 26)";
     ctxScore.font = '28px Arial';
     ctxScore.fillText(`score: ${score}`, 10, 180);
+
+    //最高記録者を表示
+    ctxScore.font = '18px Arial';
+    ctxScore.fillText(
+        `最高記録 ${gameObj.bestPlayer.name} ${gameObj.bestPlayer.score}`, 10, 210);
 }
 
 //ランキングの描画
@@ -341,6 +345,7 @@ socket.on('map data', (compressed) => {
     const itemsArray = compressed[1];
     const airArray = compressed[2];
     const flyingMissilesArray = compressed[3];
+    const bestPlayer = compressed[4];
 
     gameObj.playersMap = new Map();
     for (let compressedPlayerData of playersArray) {
@@ -391,6 +396,8 @@ socket.on('map data', (compressed) => {
             emitPlayerId: compressedFlyingMissileData[3]
         });
     });
+
+    gameObj.bestPlayer = bestPlayer;
 });
 
 socket.on('legend data', (legendObj) => {

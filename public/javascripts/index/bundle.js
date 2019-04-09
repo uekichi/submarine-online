@@ -5788,12 +5788,11 @@ var gameObj = {
     itemsMap: new Map(),
     airMap: new Map(),
     flyingMissilesMap: new Map(),
-    championScore: 0,
-    championName: null
+    bestPlayer: { name: "", score: 0 }
 };
 
 var socketQueryParameters = 'displayName=' + gameObj.myDisplayName + '&thumbUrl=' + gameObj.myThumbUrl;
-var socket = (0, _socket2.default)((0, _jquery2.default)('#main').attr('data-process.env.ipAddress') + '?' + socketQueryParameters);
+var socket = (0, _socket2.default)((0, _jquery2.default)('#main').attr('data-ipAddress') + '?' + socketQueryParameters);
 
 function init() {
 
@@ -6066,6 +6065,10 @@ function drawScore(ctxScore, score) {
     ctxScore.fillStyle = "rgb(26, 26, 26)";
     ctxScore.font = '28px Arial';
     ctxScore.fillText('score: ' + score, 10, 180);
+
+    //最高記録者を表示
+    ctxScore.font = '18px Arial';
+    ctxScore.fillText('\u6700\u9AD8\u8A18\u9332 ' + gameObj.bestPlayer.name + ' ' + gameObj.bestPlayer.score, 10, 210);
 }
 
 //ランキングの描画
@@ -6115,6 +6118,7 @@ socket.on('map data', function (compressed) {
     var itemsArray = compressed[1];
     var airArray = compressed[2];
     var flyingMissilesArray = compressed[3];
+    var bestPlayer = compressed[4];
 
     gameObj.playersMap = new Map();
     var _iteratorNormalCompletion2 = true;
@@ -6186,6 +6190,12 @@ socket.on('map data', function (compressed) {
             emitPlayerId: compressedFlyingMissileData[3]
         });
     });
+
+    gameObj.bestPlayer = bestPlayer;
+});
+
+socket.on('legend data', function (legendObj) {
+    console.log(legendObj.name + ' : ' + legendObj.score);
 });
 
 function getRadian(deg) {
